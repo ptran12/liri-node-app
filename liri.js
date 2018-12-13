@@ -29,9 +29,33 @@ function movieThis() {
     })
 }
 
+// CONCERT FUNCTION
+
+function concertThis() {
+    var artist = process.argv[3]
+    var queryUrl = "https://rest.bandsintown.com/artists/" + artist + "/events?app_id=codingbootcamp";
+    request(queryUrl, (err, response, body) => {
+        if (err) {
+            return err;
+        }
+        if (response.statusCode === 200) {
+            let json = JSON.parse(body);
+            for (var i = 0; i < 5; i++) {
+
+                console.log(("Venue: ") + json[i].venue.name);
+                console.log(("Location: ") + json[i].venue.city);
+                console.log((moment(json[i].datetime).format("MM/DD/YY")));   
+
+            }
+        }
+    })
+}
 
 switch (userInput) {
     case 'movie-this':
         movieThis();
+        break;
+    case 'concert-this':
+        concertThis();
         break;
 }
