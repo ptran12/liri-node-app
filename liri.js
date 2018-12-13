@@ -51,11 +51,59 @@ function concertThis() {
     })
 }
 
+// SPOTIFY FUNCTION
+
+function spotifyThis() {
+    var spotify = new Spotify(keys.spotify);
+    var songName = process.argv[3];
+
+    spotify.search({
+        type: "track",
+        query: songName,
+    }, function (err, data) {
+        if (err) {
+            return err;
+        }
+
+        else {
+            console.log(("Artist: ") + data.tracks.items[0].artists[0].name);
+            console.log(("Song: ") + data.tracks.items[0].name);
+            console.log(("Album: ") + data.tracks.items[0].album.name);
+            console.log(("Preview: ") + data.tracks.items[0].preview_url);
+        }
+    })
+}
+
+
+function doThis() {
+    fs.readFile("random.txt", "utf8", (err, data) => {
+        if (err) {
+            return console.log(error);
+        } else {
+
+        }
+
+    })
+
+}
+
+
+///
 switch (userInput) {
+
     case 'movie-this':
         movieThis();
         break;
+
     case 'concert-this':
         concertThis();
+        break;
+
+        case 'spotify-this-song':
+        spotifyThis();
+        break;
+
+    case 'do-what-it-says':
+        doThis();
         break;
 }
